@@ -1,0 +1,71 @@
+#services:
+# nginx:
+#   image: nginx
+#   container_name: nginx_con
+#   networks:
+#     - front_back
+#    ports:
+#      - "80:80"  
+#
+#  back:
+#   build: sohaash/simple_flask_app:v0.3   
+#   container_name: flask_app1
+    #networks:
+    # - front_back
+    # - back_db
+    #    ports:
+    #   - "5000:5000"  
+    # depends_on:
+    #  - db
+    #
+    # db:
+    # image: mariadb
+    # container_name: mariadb_db
+    # environment:
+    #  MYSQL_ROOT_PASSWORD: my-secret-pw
+    # networks:
+    # - back_db
+    # ports:
+    #  "3306:3306"  
+    #
+    #networks:
+    # front_back:
+    #back_db:
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_container
+    ports:
+      - "8080:80"
+    networks:
+      - front_back
+    depends_on:
+      - back
+
+  back:
+    image: sohaash/simple_flask_app:v0.3
+    container_name: flask_app_1
+    expose:
+      - "5000"
+    networks:
+      - front_back
+      - back_db
+    depends_on:
+      - mariadb
+
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb_container
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: flaskdb
+      MYSQL_USER: flaskuser
+      MYSQL_PASSWORD: flaskpassword
+    networks:
+      - back_db
+
+networks:
+  front_back:
+  back_db:
+

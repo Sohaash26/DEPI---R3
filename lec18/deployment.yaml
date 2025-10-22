@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpd
+  labels:
+    app: httpd
+spec:
+  ports:
+  - port: 80
+    name: httpd
+  clusterIP: None
+  selector:
+    app: httpd
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  creationTimestamp: null
+  labels:
+    app: httpd
+  name: httpd
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: httpd
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: httpd
+    spec:
+      containers:
+      - image: httpd:latest
+        name: httpd
+        resources: {}
+        ports:
+        - containerPort: 80
+          name: httpd
+        volumeMounts:
+        - name: www
+          mountPath: /usr/local/apache2/htdocs
+  volumeClaimTemplates:
+  - metadata:
+      name: www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 10Mi
+
+status: {}

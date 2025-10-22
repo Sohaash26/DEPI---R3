@@ -1,0 +1,17 @@
+---
+- name: Install vim in ubuntu and Redhat
+  hosts: all
+  become: true
+  tasks:
+    - name: Install vim on ubuntu
+      apt:
+        name: vim
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Install vim on redhat
+      dnf:
+        name: vim
+        state: present  
+      when: ansible_os_family == "RedHat"
+

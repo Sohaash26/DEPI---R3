@@ -1,0 +1,14 @@
+groups:
+- name: Node Exporter
+  labels:
+    team: telegram
+  rules:
+  - alert: Node Exporter is down
+    expr: up{job="prometheus",instance="node_exporter:9100"} == 0
+    for: 30s
+    keep_firing_for: 5m
+    labels:
+      severity: page
+    annotations:
+      summary: "Node Exporter is down on instance{{ $labels.instance }}"
+      #description: "Node Exporter has been down for more than 1 minute.\n"

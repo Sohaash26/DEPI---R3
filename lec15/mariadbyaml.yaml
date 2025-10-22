@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: mariadbDB
+  name: mariadbDB
+  namespace: database-server
+spec:
+  containers:
+  - image: mariadb:latest
+    name: mariadbDB
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}

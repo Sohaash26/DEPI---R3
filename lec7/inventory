@@ -1,0 +1,4 @@
+[server]
+ubuntu_server ansible_host=3.87.61.41 ansible_ssh_user=soha ansible_become_pass=2001
+
+redhat_server ansible_host=18.212.36.178 ansible_ssh_user=soha ansible_ssh_pass=password08 ansible_become_pass=2001

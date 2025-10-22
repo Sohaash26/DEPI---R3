@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mariadb
+  name: mariadb
+  namespace: database-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mariadb
+    spec:
+      containers:
+      - image: mariadb:latest
+        name: mariadb
+
+    spec:
+      containers:
+      - name: mariadb
+        image: mariadb:latest
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MARIADB_ROOT_PASSWORD
+          value: rootpassword
+        - name: MARIADB_DATABASE
+          value: testdb
+        - name: MARIADB_USER
+          value: testuser
+        - name: MARIADB_PASSWORD
+          value: testpass
+        resources: {}
+status: {}
